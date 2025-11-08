@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏭 Padrão Factory Method em Delphi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565c0;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #1565c0;
+      border-bottom: 2px solid #bbdefb;
+      padding-bottom: 5px;
+    }
+    .box, .exemplo {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #64b5f6;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #263238;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .copy-btn:hover {
+      background: #0d47a1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+    a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏭 Padrão Factory Method em Delphi</h1>
+  <p>Criação flexível de objetos com base em decisões dinâmicas</p>
+</header>
+
+<main>
+  <h2>✅ Definição</h2>
+  <div class="box">
+    Factory Method é um padrão criacional que define uma interface para criar objetos, mas permite que subclasses decidam qual classe instanciar. Ele promove flexibilidade e desacoplamento entre o código cliente e as classes concretas.
+  </div>
+
+  <h2>💡 Cenário prático</h2>
+  <p>Imagine um sistema de notificações que pode enviar mensagens por <strong>Email</strong>, <strong>SMS</strong> ou <strong>Push</strong>. O tipo de notificação pode variar conforme a preferência do usuário ou o canal disponível.</p>
+  <div class="exemplo">
+    Com Factory Method, você pode criar notificações dinamicamente sem precisar alterar o código principal. Basta trocar a classe concreta da fábrica.
+  </div>
+
+  <h2>📦 Estrutura de Projeto</h2>
+  <pre><code>
+src/
+├── Interfaces/
+│   └── INotificacao.pas
+├── Tipos/
+│   ├── TEmail.pas
+│   ├── TSMS.pas
+│   └── TPush.pas
+├── Factory/
+│   └── TNotificacaoFactory.pas
+└── App/
+    └── Main.pas
+  </code></pre>
+
+  <h2>🧪 Código Delphi</h2>
+  <pre><code>
+type
+  INotificacao = interface
+    procedure Enviar(msg: string);
+  end;
+
+  TEmail = class(TInterfacedObject, INotificacao)
+    procedure Enviar(msg: string);
+  end;
+
+  TSMS = class(TInterfacedObject, INotificacao)
+    procedure Enviar(msg: string);
+  end;
+
+  TNotificacaoFactory = class
+    class function Criar(tipo: string): INotificacao;
+  end;
+
+procedure TEmail.Enviar(msg: string);
+begin
+  ShowMessage('Email enviado: ' + msg);
+end;
+
+procedure TSMS.Enviar(msg: string);
+begin
+  ShowMessage('SMS enviado: ' + msg);
+end;
+
+class function TNotificacaoFactory.Criar(tipo: string): INotificacao;
+begin
+  if tipo = 'email' then
+    Result := TEmail.Create
+  else if tipo = 'sms' then
+    Result := TSMS.Create
+  else
+    raise Exception.Create('Tipo de notificação inválido');
+end;
+
+// Uso no cliente:
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  notificacao: INotificacao;
+begin
+  notificacao := TNotificacaoFactory.Criar('email');
+  notificacao.Enviar('Olá, Savio!');
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <h2>✅ Vantagens</h2>
+  <div class="box">
+    <ul>
+      <li>🔁 Permite trocar o tipo de objeto criado sem alterar o código cliente</li>
+      <li>🧩 Facilita a adição de novos tipos de notificações</li>
+      <li>🔒 Reduz o acoplamento entre o sistema e as classes concretas</li>
+    </ul>
+  </div>
+
+  <h2>📌 Conclusão</h2>
+  <div class="box">
+    Factory Method é como um balcão de atendimento: você pede o tipo de notificação e ele entrega a instância certa, sem você precisar saber como ela foi criada.
+  </div>
+
+  <p><a href="index.html">⬅️ Voltar à página principal</a></p>
+</main>
+
+<footer>
+  <p>Padrões de Projeto em Delphi • Factory Method • 2025</p>
+</footer>
+
+<script>
+  function copyCode(button) {
+    const codeBlock = button.previousElementSibling;
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+      button.textContent = "Copiado!";
+      setTimeout(() => button.textContent = "Copiar código", 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

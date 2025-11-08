@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎨 Padrão Abstract Factory em Delphi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565c0;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #1565c0;
+      border-bottom: 2px solid #bbdefb;
+      padding-bottom: 5px;
+    }
+    .box, .exemplo {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #64b5f6;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #263238;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .copy-btn:hover {
+      background: #0d47a1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+    a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎨 Padrão Abstract Factory em Delphi</h1>
+  <p>Criação de famílias de objetos relacionados com consistência e flexibilidade</p>
+</header>
+
+<main>
+  <h2>✅ Definição</h2>
+  <div class="box">
+    Abstract Factory é um padrão criacional que fornece uma interface para criar <strong>famílias de objetos relacionados</strong> sem especificar suas classes concretas. Ele garante consistência entre os objetos criados e facilita a troca de estilos ou temas.
+  </div>
+
+  <h2>💡 Cenário prático</h2>
+  <p>Imagine que você está desenvolvendo um sistema que gera <strong>cartões de aniversário</strong> e <strong>cartões de natal</strong> com dois estilos:</p>
+  <ul>
+    <li>✉️ Simples</li>
+    <li>💎 Luxo</li>
+  </ul>
+  <div class="exemplo">
+    Com Abstract Factory, você garante que todos os cartões criados sigam o mesmo estilo, evitando misturas como "aniversário simples" com "natal luxo".
+  </div>
+
+  <h2>📦 Estrutura de Projeto</h2>
+  <pre><code>
+src/
+├── Interfaces/
+│   ├── ICartaoAniversario.pas
+│   ├── ICartaoNatal.pas
+│   └── IFabricaCartao.pas
+├── Simples/
+│   ├── CartaoAniversarioSimples.pas
+│   ├── CartaoNatalSimples.pas
+│   └── FabricaCartaoSimples.pas
+├── Luxo/
+│   ├── CartaoAniversarioLuxo.pas
+│   ├── CartaoNatalLuxo.pas
+│   └── FabricaCartaoLuxo.pas
+└── App/
+    └── Main.pas
+  </code></pre>
+
+  <h2>🧪 Código Delphi</h2>
+  <pre><code>
+type
+  ICartaoAniversario = interface
+    procedure ExibirMensagem;
+  end;
+
+  ICartaoNatal = interface
+    procedure ExibirMensagem;
+  end;
+
+  IFabricaCartao = interface
+    function CriarCartaoAniversario: ICartaoAniversario;
+    function CriarCartaoNatal: ICartaoNatal;
+  end;
+
+  TCartaoAniversarioSimples = class(TInterfacedObject, ICartaoAniversario)
+    procedure ExibirMensagem;
+  end;
+
+  procedure TCartaoAniversarioSimples.ExibirMensagem;
+  begin
+    ShowMessage('Feliz Aniversário! (Simples)');
+  end;
+
+  TFabricaCartaoSimples = class(TInterfacedObject, IFabricaCartao)
+    function CriarCartaoAniversario: ICartaoAniversario;
+    function CriarCartaoNatal: ICartaoNatal;
+  end;
+
+function TFabricaCartaoSimples.CriarCartaoAniversario: ICartaoAniversario;
+begin
+  Result := TCartaoAniversarioSimples.Create;
+end;
+
+// Uso no cliente:
+procedure CriarCartoes(fabrica: IFabricaCartao);
+var
+  aniversario: ICartaoAniversario;
+  natal: ICartaoNatal;
+begin
+  aniversario := fabrica.CriarCartaoAniversario;
+  natal := fabrica.CriarCartaoNatal;
+
+  aniversario.ExibirMensagem;
+  natal.ExibirMensagem;
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <h2>✅ Vantagens</h2>
+  <div class="box">
+    <ul>
+      <li>🔁 Troca de estilo sem alterar o código cliente</li>
+      <li>🧩 Consistência entre os objetos criados</li>
+      <li>🔒 Evita mistura de estilos incompatíveis</li>
+    </ul>
+  </div>
+
+  <h2>📌 Conclusão</h2>
+  <div class="box">
+    Abstract Factory é como escolher um combo de papelaria: você define o estilo e recebe todos os itens coordenados — sem precisar montar peça por peça.
+  </div>
+
+  <p><a href="index.html">⬅️ Voltar à página principal</a></p>
+</main>
+
+<footer>
+  <p>Padrões de Projeto em Delphi • Abstract Factory • 2025</p>
+</footer>
+
+<script>
+  function copyCode(button) {
+    const codeBlock = button.previousElementSibling;
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+      button.textContent = "Copiado!";
+      setTimeout(() => button.textContent = "Copiar código", 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

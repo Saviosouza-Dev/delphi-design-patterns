@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🧱 Padrão Builder em Delphi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565c0;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #1565c0;
+      border-bottom: 2px solid #bbdefb;
+      padding-bottom: 5px;
+    }
+    .box, .exemplo {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #64b5f6;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #263238;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .copy-btn:hover {
+      background: #0d47a1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+    a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🧱 Padrão Builder em Delphi</h1>
+  <p>Construa objetos complexos passo a passo com flexibilidade e clareza</p>
+</header>
+
+<main>
+  <h2>✅ Definição</h2>
+  <div class="box">
+    Builder é um padrão criacional que separa a construção de um objeto complexo da sua representação, permitindo que o mesmo processo de construção crie diferentes representações.
+  </div>
+
+  <h2>💡 Cenário prático</h2>
+  <p>Imagine um sistema que gera relatórios. Alguns relatórios têm cabeçalho, corpo e rodapé; outros têm apenas corpo e rodapé. Você quer montar esses relatórios de forma flexível, sem duplicar código.</p>
+  <div class="exemplo">
+    Com Builder, você pode montar relatórios passo a passo, escolhendo quais partes incluir, sem alterar a estrutura geral.
+  </div>
+
+  <h2>📦 Estrutura de Projeto</h2>
+  <pre><code>
+src/
+├── Builders/
+│   └── TRelatorioBuilder.pas
+├── Produtos/
+│   └── TRelatorio.pas
+└── App/
+    └── Main.pas
+  </code></pre>
+
+  <h2>🧪 Código Delphi</h2>
+  <pre><code>
+type
+  TRelatorio = class
+  private
+    FConteudo: string;
+  public
+    procedure Adicionar(texto: string);
+    function ObterConteudo: string;
+  end;
+
+procedure TRelatorio.Adicionar(texto: string);
+begin
+  FConteudo := FConteudo + texto + sLineBreak;
+end;
+
+function TRelatorio.ObterConteudo: string;
+begin
+  Result := FConteudo;
+end;
+
+type
+  TRelatorioBuilder = class
+  private
+    FRelatorio: TRelatorio;
+  public
+    constructor Create;
+    procedure AddCabecalho;
+    procedure AddCorpo;
+    procedure AddRodape;
+    function GetRelatorio: TRelatorio;
+  end;
+
+constructor TRelatorioBuilder.Create;
+begin
+  FRelatorio := TRelatorio.Create;
+end;
+
+procedure TRelatorioBuilder.AddCabecalho;
+begin
+  FRelatorio.Adicionar('--- CABEÇALHO ---');
+end;
+
+procedure TRelatorioBuilder.AddCorpo;
+begin
+  FRelatorio.Adicionar('Conteúdo principal do relatório.');
+end;
+
+procedure TRelatorioBuilder.AddRodape;
+begin
+  FRelatorio.Adicionar('--- RODAPÉ ---');
+end;
+
+function TRelatorioBuilder.GetRelatorio: TRelatorio;
+begin
+  Result := FRelatorio;
+end;
+
+// Uso no cliente:
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  builder: TRelatorioBuilder;
+  relatorio: TRelatorio;
+begin
+  builder := TRelatorioBuilder.Create;
+  builder.AddCabecalho;
+  builder.AddCorpo;
+  builder.AddRodape;
+  relatorio := builder.GetRelatorio;
+  ShowMessage(relatorio.ObterConteudo);
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <h2>✅ Vantagens</h2>
+  <div class="box">
+    <ul>
+      <li>🔁 Permite construir objetos passo a passo</li>
+      <li>🧩 Facilita a criação de variações do mesmo objeto</li>
+      <li>🔒 Separa a lógica de construção da lógica de apresentação</li>
+    </ul>
+  </div>
+
+  <h2>📌 Conclusão</h2>
+  <div class="box">
+    Builder é como montar um sanduíche: você escolhe os ingredientes e a ordem, e o resultado final é sempre bem estruturado.
+  </div>
+
+  <p><a href="index.html">⬅️ Voltar à página principal</a></p>
+</main>
+
+<footer>
+  <p>Padrões de Projeto em Delphi • Builder • 2025</p>
+</footer>
+
+<script>
+  function copyCode(button) {
+    const codeBlock = button.previousElementSibling;
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+      button.textContent = "Copiado!";
+      setTimeout(() => button.textContent = "Copiar código", 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

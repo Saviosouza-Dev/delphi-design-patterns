@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia Completo – Padrões Criacionais em Delphi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565c0;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #1565c0;
+      border-bottom: 2px solid #90caf9;
+      padding-bottom: 5px;
+    }
+    .box {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #64b5f6;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #263238;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .copy-btn:hover {
+      background: #0d47a1;
+    }
+    .home-button {
+      display: inline-block;
+      background-color: #1565c0;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 20px 0;
+      transition: background 0.3s ease;
+    }
+    .home-button:hover {
+      background-color: #1e88e5;
+    }
+    .retorno {
+      background: #e3f2fd;
+      padding: 20px;
+      border-left: 5px solid #64b5f6;
+      border-radius: 8px;
+      margin-top: 40px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 Guia Completo – Padrões Criacionais em Delphi</h1>
+  <p>Domine a arquitetura de software com exemplos práticos e explicações claras</p>
+</header>
+
+<main>
+  <a href="padroes.html" class="home-button">🏠 Voltar às Categorias</a>
+
+  <!-- Singleton -->
+  <h2>🔒 Singleton</h2>
+  <div class="box">
+    Garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a ela. Ideal para configurações, logs ou conexões únicas.
+  </div>
+  <pre><code>
+type
+  TConfig = class
+  private
+    class var FInstance: TConfig;
+    constructor Create;
+  public
+    class function GetInstance: TConfig;
+    procedure LoadSettings;
+  end;
+
+class function TConfig.GetInstance: TConfig;
+begin
+  if FInstance = nil then
+    FInstance := TConfig.Create;
+  Result := FInstance;
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <!-- Factory Method -->
+  <h2>🏭 Factory Method</h2>
+  <div class="box">
+    Define uma interface para criar objetos, mas permite que subclasses decidam qual classe instanciar. Ótimo para sistemas com múltiplos tipos de notificações.
+  </div>
+  <pre><code>
+type
+  INotificacao = interface
+    procedure Enviar(msg: string);
+  end;
+
+  TEmail = class(TInterfacedObject, INotificacao)
+    procedure Enviar(msg: string);
+  end;
+
+  TSMS = class(TInterfacedObject, INotificacao)
+    procedure Enviar(msg: string);
+  end;
+
+  TFactory = class
+    class function Criar(tipo: string): INotificacao;
+  end;
+
+class function TFactory.Criar(tipo: string): INotificacao;
+begin
+  if tipo = 'email' then
+    Result := TEmail.Create
+  else if tipo = 'sms' then
+    Result := TSMS.Create;
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <!-- Abstract Factory -->
+  <h2>🎨 Abstract Factory</h2>
+  <div class="box">
+    Permite criar famílias de objetos relacionados sem especificar suas classes concretas. Ideal para sistemas com múltiplas interfaces (Windows, Mac).
+  </div>
+  <pre><code>
+type
+  IButton = interface
+    procedure Render;
+  end;
+
+  IGUIFactory = interface
+    function CriarBotao: IButton;
+  end;
+
+  TWindowsFactory = class(TInterfacedObject, IGUIFactory)
+    function CriarBotao: IButton;
+  end;
+
+  TMacFactory = class(TInterfacedObject, IGUIFactory)
+    function CriarBotao: IButton;
+  end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <!-- Builder -->
+  <h2>🧱 Builder</h2>
+  <div class="box">
+    Separa a construção de um objeto complexo da sua representação. Ideal para gerar relatórios, documentos ou interfaces passo a passo.
+  </div>
+  <pre><code>
+type
+  TRelatorioBuilder = class
+    procedure AdicionarCabecalho;
+    procedure AdicionarCorpo;
+    procedure AdicionarRodape;
+    function GetRelatorio: string;
+  end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <!-- Prototype -->
+  <h2>🧬 Prototype</h2>
+  <div class="box">
+    Permite copiar objetos existentes sem depender de suas classes. Útil para duplicar configurações, formulários ou layouts.
+  </div>
+  <pre><code>
+type
+  ICloneable = interface
+    function Clone: TObject;
+  end;
+
+  TDocumento = class(TInterfacedObject, ICloneable)
+    Titulo: string;
+    function Clone: TObject;
+  end;
+
+function TDocumento.Clone: TObject;
+begin
+  Result := TDocumento.Create;
+  TDocumento(Result).Titulo := Self.Titulo;
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <div class="retorno">
+    <h3>🔙 Quer retornar ao início do site?</h3>
+    <a href="index.html" class="home-button">🏠 Ir para Página Principal</a>
+  </div>
+</main>
+
+<footer>
+  <p>Padrões Criacionais em Delphi • Guia Completo • 2025</p>
+</footer>
+
+<script>
+  function copyCode(button) {
+    const codeBlock = button.previousElementSibling;
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+      button.textContent = "Copiado!";
+      setTimeout(() => button.textContent = "Copiar código", 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

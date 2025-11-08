@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔒 Padrão Singleton em Delphi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565c0;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      color: #1565c0;
+      border-bottom: 2px solid #bbdefb;
+      padding-bottom: 5px;
+    }
+    .box, .exemplo {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #64b5f6;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #263238;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .copy-btn:hover {
+      background: #0d47a1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+    a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .home-button {
+      display: inline-block;
+      background-color: #1565c0;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 20px 0;
+      transition: background 0.3s ease;
+    }
+    .home-button:hover {
+      background-color: #1e88e5;
+    }
+    .retorno {
+      background: #e3f2fd;
+      padding: 20px;
+      border-left: 5px solid #64b5f6;
+      border-radius: 8px;
+      margin-top: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🔒 Padrão Singleton em Delphi</h1>
+  <p>Controle de instância única para configurações e recursos globais</p>
+</header>
+
+<main>
+  <!-- Botão no topo para padroes.html -->
+  <a href="padroes.html" class="home-button">🏠 Voltar às Categorias</a>
+
+  <h2>✅ Definição</h2>
+  <div class="box">
+    Singleton é um padrão de projeto criacional que garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a ela. É útil para gerenciar configurações, conexões ou recursos compartilhados.
+  </div>
+
+  <h2>💡 Cenário prático</h2>
+  <p>Imagine que você está desenvolvendo um sistema Delphi que precisa acessar configurações globais (idioma, tema, permissões). Essas configurações devem ser carregadas uma única vez e acessadas por todo o sistema.</p>
+  <div class="exemplo">
+    O Singleton garante que essas configurações sejam instanciadas apenas uma vez, evitando duplicidade e inconsistência.
+  </div>
+
+  <h2>📦 Estrutura de Projeto</h2>
+  <pre><code>
+src/
+├── Config/
+│   └── TConfig.pas
+├── App/
+│   └── Main.pas
+  </code></pre>
+
+  <h2>🧪 Código Delphi</h2>
+  <pre><code>
+type
+  TConfig = class
+  private
+    class var FInstance: TConfig;
+    constructor Create;
+  public
+    class function GetInstance: TConfig;
+    procedure LoadSettings;
+  end;
+
+constructor TConfig.Create;
+begin
+  // Inicialização privada
+end;
+
+class function TConfig.GetInstance: TConfig;
+begin
+  if FInstance = nil then
+    FInstance := TConfig.Create;
+  Result := FInstance;
+end;
+
+procedure TConfig.LoadSettings;
+begin
+  ShowMessage('Configurações carregadas!');
+end;
+
+// Uso no cliente:
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  TConfig.GetInstance.LoadSettings;
+end;
+  </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+  <h2>✅ Vantagens</h2>
+  <div class="box">
+    <ul>
+      <li>🔁 Evita múltiplas instâncias desnecessárias</li>
+      <li>🧩 Centraliza o acesso a dados globais</li>
+      <li>🔒 Garante consistência e controle</li>
+    </ul>
+  </div>
+
+  <h2>📌 Conclusão</h2>
+  <div class="box">
+    Singleton é como um gerente de configurações: existe apenas um, e todos os módulos do sistema consultam ele. Simples, seguro e eficiente.
+  </div>
+
+  <!-- Cartão visual no final para index.html -->
+  <div class="retorno">
+    <h3>🔙 Quer retornar ao início do site?</h3>
+    <a href="index.html" class="home-button">🏠 Ir para Página Principal</a>
+  </div>
+</main>
+
+<footer>
+  <p>Padrões de Projeto em Delphi • Singleton • 2025</p>
+</footer>
+
+<script>
+  function copyCode(button) {
+    const codeBlock = button.previousElementSibling;
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+      button.textContent = "Copiado!";
+      setTimeout(() => button.textContent = "Copiar código", 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

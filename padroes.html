@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padrões de Projeto em Delphi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #102027;
+      --text-light: #0d47a1;
+      --text-dark: #f8f8f2;
+      --accent: #1565c0;
+      --accent-hover: #1e88e5;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      display: flex;
+      transition: background 0.5s, color 0.5s;
+      background: linear-gradient(-45deg, #e3f2fd, #bbdefb, #e8eaf6, #c5cae9);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: var(--text-light);
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav {
+      width: 250px;
+      background-color: var(--accent);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 30px 20px;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+    }
+
+    nav h1 {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav li {
+      margin: 15px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-btn {
+      background: white;
+      color: var(--accent);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .toggle-btn:hover {
+      background: #bbdefb;
+    }
+
+    main {
+      margin-left: 300px;
+      padding: 40px 60px;
+      max-width: 1200px;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: var(--accent-hover);
+      border-bottom: 2px solid #90caf9;
+      padding-bottom: 5px;
+    }
+
+    .categoria {
+      background-color: #e8eaf6;
+      padding: 25px;
+      border-left: 6px solid #64b5f6;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .categoria:hover {
+      box-shadow: 0 0 15px rgba(30, 136, 229, 0.3);
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode .categoria {
+      background-color: #37474f;
+      border-left-color: var(--accent-hover);
+    }
+
+    .categoria h3 {
+      margin-top: 0;
+      font-size: 1.3em;
+      color: var(--accent-hover);
+    }
+
+    ul.links {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 15px;
+    }
+
+    ul.links li {
+      margin: 10px 0;
+    }
+
+    ul.links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    ul.links a:hover {
+      color: var(--accent-hover);
+      animation: pulse 0.4s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    body.dark-mode ul.links a {
+      color: #90caf9;
+    }
+
+    body.dark-mode ul.links a:hover {
+      color: #bbdefb;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #eee;
+      font-size: 0.9em;
+      margin-top: 60px;
+	  }
+	  
+	  body.dark-mode footer {
+	  background-color: #1a1a1a;
+	  color: #f8f8f2;
+	  box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+	}
+
+    @media (max-width: 768px) {
+      nav {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h1>📚 Delphi Patterns</h1>
+  <ul>
+    <li><a href="#criacionais">🎓 Criacionais</a></li>
+    <li><a href="#estruturais">🧱 Estruturais</a></li>
+    <li><a href="#comportamentais">🧠 Comportamentais</a></li>
+  </ul>
+  <button class="toggle-btn" onclick="toggleMode()">🌙 Modo Escuro</button>
+</nav>
+
+<main>
+  <section id="criacionais">
+    <h2>🎓 Padrões Criacionais</h2>
+    <div class="categoria">
+      <h3>Modelam a criação de objetos</h3>
+      <ul class="links">
+        <li><a href="singleton.html">🔒 Singleton</a></li>
+        <li><a href="factory-method.html">🏭 Factory Method</a></li>
+        <li><a href="abstract-factory.html">🎨 Abstract Factory</a></li>
+        <li><a href="builder.html">🧱 Builder</a></li>
+        <li><a href="prototype.html">🧬 Prototype</a></li>
+        <li><a href="guia-completo.html">📖 Guia Completo</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="estruturais">
+    <h2>🧱 Padrões Estruturais</h2>
+    <div class="categoria">
+      <h3>Organizam classes e objetos para formar estruturas flexíveis</h3>
+      <ul class="links">
+        <li><a href="adapter.html">🔌 Adapter</a></li>
+        <li><a href="composite.html">🌿 Composite</a></li>
+        <li><a href="decorator.html">🎀 Decorator</a></li>
+        <li><a href="facade.html">🏛️ Facade</a></li>
+        <li><a href="bridge.html">🌉 Bridge</a></li>
+        <li><a href="proxy.html">🕵️ Proxy</a></li>
+        <li><a href="flyweight.html">🧩 Flyweight</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="comportamentais">
+    <h2>🧠 Padrões Comportamentais</h2>
+    <div class="categoria">
+      <h3>Definem a comunicação entre objetos e o fluxo de responsabilidade</h3>
+      <ul class="links">
+        <li><a href="observer.html">👀 Observer</a></li>
+        <li><a href="strategy.html">🎯 Strategy</a></li>
+        <li><a href="command.html">🗣️ Command</a></li>
+        <li><a href="state.html">🔄 State</a></li>
+        <li><a href="template-method.html">📋 Template Method</a></li>
+        <li><a href="chain-of-responsibility.html">⛓️ Chain of Responsibility</a></li>
+        <li><a href="mediator.html">🧭 Mediator</a></li>
+        <li><a href="memento.html">🧳 Memento</a></li>
+        <li><a href="visitor.html">🚶 Visitor</a></li>
+        <li><a href="interpreter.html">🗣️ Interpreter</a></li>
+        <li><a href="iterator.html">🔁 Iterator</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Desenvolvido por Savio Souza • Delphi Patterns • 2025</p>
+  </footer>
+</main>
+
+<script>
+  function toggleMode() {
+    document.body.classList.toggle("dark-mode");
+  }
+</script>
+
+</body>
+</html>
