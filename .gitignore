@@ -1,0 +1,21 @@
+# Delphi build artifacts
+*.dcu
+*.exe
+*.dll
+*.map
+*.tds
+*.~*
+*.local
+*.identcache
+*.log
+*.bak
+
+# Build folders
+Win32/Debug/
+Win32/Release/
+Win64/Debug/
+Win64/Release/
+
+# IDE folders
+__history/
+__recovery/
