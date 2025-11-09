@@ -47,7 +47,7 @@ delphi-design-patterns/
 
 ## 🌐 GitHub Pages
 
-Se publicado, o site estará disponível em: https://saviosouza-dev.github.io/delphi-design-patterns
+Se publicado, o site estará disponível em:
 
 
 ## 👨‍💻 Autor
