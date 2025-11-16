@@ -174,6 +174,60 @@ end;
   <div class="box">
     Singleton é como um gerente de configurações: existe apenas um, e todos os módulos do sistema consultam ele. Simples, seguro e eficiente.
   </div>
+  <h2>🧸 Exemplo Didático: Gerente de Brinquedos</h2>
+<div class="box">
+  Este exemplo mostra uma loja de brinquedos com um único gerente. Cada botão no formulário chama o mesmo gerente para exibir um brinquedo diferente, demonstrando o padrão Singleton de forma lúdica e acessível.
+</div>
+
+<h3>📁 Estrutura de Projeto</h3>
+<pre><code>
+src/
+├── Config/
+│   └── uBrinquedoManager.pas
+├── App/
+│   └── LojaForm.pas
+</code></pre>
+
+<h3>🧪 Código Delphi</h3>
+<pre><code>
+type
+  TBrinquedoManager = class
+  private
+    class var FInstance: TBrinquedoManager;
+    constructor Create;
+  public
+    class function GetInstance: TBrinquedoManager;
+    procedure MostrarBrinquedo(const Nome: string);
+  end;
+
+constructor TBrinquedoManager.Create;
+begin
+  // Inicialização privada
+end;
+
+class function TBrinquedoManager.GetInstance: TBrinquedoManager;
+begin
+  if FInstance = nil then
+    FInstance := TBrinquedoManager.Create;
+  Result := FInstance;
+end;
+
+procedure TBrinquedoManager.MostrarBrinquedo(const Nome: string);
+begin
+  ShowMessage('Brinquedo disponível: ' + Nome);
+end;
+
+// Uso no cliente:
+procedure TLojaForm.btnCarrinhoClick(Sender: TObject);
+begin
+  TBrinquedoManager.GetInstance.MostrarBrinquedo('Carrinho de Corrida');
+end;
+</code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
+
+<h3>🎯 Aplicação</h3>
+<div class="exemplo">
+  Ao clicar nos botões "Carrinho" ou "Boneca", o mesmo gerente é chamado para mostrar o brinquedo. Isso reforça o conceito de instância única, de forma divertida e intuitiva.
+</div>
 
   <!-- Cartão visual no final para index.html -->
   <div class="retorno">
