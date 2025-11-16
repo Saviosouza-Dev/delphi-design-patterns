@@ -4,7 +4,8 @@ uses
   Vcl.Forms,
   unSingleton in 'src\App\unSingleton.pas' {SingletonForm},
   unTConfig in 'src\config\unTConfig.pas',
-  unLojaForm in 'src\App\unLojaForm.pas' {LojaForm};
+  unLojaForm in 'src\App\unLojaForm.pas' {LojaForm},
+  unBrinquedoManager in 'src\config\unBrinquedoManager.pas';
 
 {$R *.res}
 

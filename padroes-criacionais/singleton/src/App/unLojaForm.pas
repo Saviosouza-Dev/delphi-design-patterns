@@ -23,18 +23,18 @@ var
 
 implementation
 uses
-uBrinquedoManager;
+unBrinquedoManager;
 
 {$R *.dfm}
 
 procedure TLojaForm.btnBonecaClick(Sender: TObject);
 begin
-  TBrinquedoManager.GetInstance.MostrarBrinquedo('Boneca Barbie');
+  TBrinquedoManager.GetInstance.MostrarBrinquedo('Boneca Barbie.');
 end;
 
 procedure TLojaForm.btnCarrinhoClick(Sender: TObject);
 begin
-  TBrinquedoManager.GetInstance.MostrarBrinquedo('Carrinho de Corrida');
+  TBrinquedoManager.GetInstance.MostrarBrinquedo('Carrinho de Corrida.');
 end;
 
 end.

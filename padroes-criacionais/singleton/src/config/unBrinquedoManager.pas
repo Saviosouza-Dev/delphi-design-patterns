@@ -1,4 +1,4 @@
-unit uBrinquedoManager;
+unit unBrinquedoManager;
 
 interface
 uses

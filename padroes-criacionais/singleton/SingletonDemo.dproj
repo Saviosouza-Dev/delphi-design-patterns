@@ -132,6 +132,7 @@
             <Form>LojaForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\config\unBrinquedoManager.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
