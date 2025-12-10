@@ -10,6 +10,7 @@ object LojaForm: TLojaForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = [fsBold]
+  Position = poScreenCenter
   TextHeight = 15
   object btnCarrinho: TButton
     Left = 8
