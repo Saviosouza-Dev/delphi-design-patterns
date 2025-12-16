@@ -22,7 +22,7 @@ class function TNotificacaoFactory.Criar(tipo: string): INotificacao;
 begin
   tipo := LowerCase(tipo);  //normaliza o texto para evitar erros de comparação
 
-  // decisão da fábrica — identifica o tipo e instancia a classe correta
+  // decisão da fábrica — identifica o tipo de classe e instancia a ser criada
   if tipo = 'email' then
     Result := TEmail.Create
   else if tipo = 'sms' then
