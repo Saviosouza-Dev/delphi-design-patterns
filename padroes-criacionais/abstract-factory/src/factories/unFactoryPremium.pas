@@ -5,14 +5,15 @@ interface
 uses
   unINotificacaoFactory,
   unINotificacao,
-  unNotificacaoEmail,
-  unNotificacaoSMS,
-  unNotificacaoPush;
+  unNotificacaoEmailPremium,
+  unNotificacaoSMSPremium,
+  unNotificacaoPushPremium;
 
 type
   TFactoryPremium = class(TInterfacedObject, INotificacaoFactory)
   public
-    // Cria as notificações da versão básica seguindo assinatura de contrato da interface a qual assina
+    // Cria as notificações da versão premium seguindo assinatura de contrato da interface a qual assina
+    // Retorna sempre via INotificacao, garantindo encapsulamento e desacoplamento do cliente
     function CriarEmail: INotificacao;
     function CriarSMS: INotificacao;
     function CriarPush: INotificacao;
@@ -22,17 +23,17 @@ implementation
 
 function TFactoryPremium.CriarEmail: INotificacao;
 begin
-  Result := TNotificacaoEmail.Create;
+  Result := TNotificacaoEmailPremium.Create;
 end;
 
 function TFactoryPremium.CriarSMS: INotificacao;
 begin
-  Result := TNotificacaoSMS.Create;
+  Result := TNotificacaoSMSPremium.Create;
 end;
 
 function TFactoryPremium.CriarPush: INotificacao;
 begin
-  Result := TNotificacaoPush.Create;
+  Result := TNotificacaoPushPremium.Create;
 end;
 
 end.

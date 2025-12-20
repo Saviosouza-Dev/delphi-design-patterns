@@ -58,6 +58,7 @@ uses
 procedure TfrmAbstractFactory.pnlEnviarEmailClick(Sender: TObject);
 begin
   if Assigned(FFactory) then
+    // Solicita à fábrica atual a criação da notificação e chama o método Enviar
     FFactory.CriarEmail.Enviar;
 end;
 
@@ -76,7 +77,7 @@ end;
 procedure TfrmAbstractFactory.pnlFactoryBasicaClick(Sender: TObject);
 begin
    lblFactoryAtual.Caption := 'Factory atual: BÁSICA';
-    // Instancia a fábrica concreta do tipo Básica
+    // Instancia a fábrica concreta do tipo Básica(seguindo o contrato da interface)
    FFactory := TFactoryBasica.Create;
    TTemaNotificacao.AplicarBasico(pnlEnviarEmail, pnlEnviarSMS, pnlEnviarPush); // Aplica o tema visual da versão básica
 
@@ -85,7 +86,7 @@ end;
 procedure TfrmAbstractFactory.pnlFactoryPremiumClick(Sender: TObject);
 begin
   lblFactoryAtual.Caption := 'Factory atual: PREMIUM';
-  // Instancia a fábrica concreta do tipo Premium
+  // Instancia a fábrica concreta do tipo Premium (seguindo o contrato da interface)
   FFactory := TFactoryPremium.create;
   TTemaNotificacao.AplicarPremium(pnlEnviarEmail, pnlEnviarSMS, pnlEnviarPush) ;  // Aplica o tema visual da versão Premium
 end;

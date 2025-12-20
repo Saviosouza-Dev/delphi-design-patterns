@@ -134,6 +134,9 @@
         <DCCReference Include="src\notificacoes\push\unNotificacaoPush.pas"/>
         <DCCReference Include="src\factories\unFactoryBasica.pas"/>
         <DCCReference Include="src\factories\unFactoryPremium.pas"/>
+        <DCCReference Include="src\notificacoes\email\unNotificacaoEmailPremium.pas"/>
+        <DCCReference Include="src\notificacoes\sms\unNotificacaoSMSPremium.pas"/>
+        <DCCReference Include="src\notificacoes\push\unNotificacaoPushPremium.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

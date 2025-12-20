@@ -15,17 +15,19 @@ object frmAbstractFactory: TfrmAbstractFactory
   Position = poDesktopCenter
   TextHeight = 15
   object lblFactoryAtual: TLabel
-    Left = 248
+    Left = 232
     Top = 8
     Width = 6
     Height = 28
     Align = alCustom
     Alignment = taCenter
+    Color = clBeige
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
     Transparent = False
   end

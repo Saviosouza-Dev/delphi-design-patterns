@@ -10,7 +10,10 @@ uses
   unNotificacaoSMS in 'src\notificacoes\sms\unNotificacaoSMS.pas',
   unNotificacaoPush in 'src\notificacoes\push\unNotificacaoPush.pas',
   unFactoryBasica in 'src\factories\unFactoryBasica.pas',
-  unFactoryPremium in 'src\factories\unFactoryPremium.pas';
+  unFactoryPremium in 'src\factories\unFactoryPremium.pas',
+  unNotificacaoEmailPremium in 'src\notificacoes\email\unNotificacaoEmailPremium.pas',
+  unNotificacaoSMSPremium in 'src\notificacoes\sms\unNotificacaoSMSPremium.pas',
+  unNotificacaoPushPremium in 'src\notificacoes\push\unNotificacaoPushPremium.pas';
 
 {$R *.res}
 

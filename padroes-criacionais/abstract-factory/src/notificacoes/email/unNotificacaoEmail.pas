@@ -10,6 +10,7 @@ uses
 type
   TNotificacaoEmail = class(TInterfacedObject, INotificacao)
   public
+  // Método responsável por executar o envio da notificação
     procedure Enviar;
   end;
 

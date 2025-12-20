@@ -13,6 +13,7 @@ type
   TFactoryBasica = class(TInterfacedObject, INotificacaoFactory)
   public
    // Cria as notificações da versão básica seguindo assinatura de contrato da interface a qual assina
+   // Retorna sempre via INotificacao, garantindo encapsulamento e desacoplamento do cliente
     function CriarEmail: INotificacao;
     function CriarSMS: INotificacao;
     function CriarPush: INotificacao;
