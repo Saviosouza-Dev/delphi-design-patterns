@@ -1,7 +1,7 @@
 object frmAbstractFactory: TfrmAbstractFactory
   Left = 0
   Top = 0
-  Align = alCustom
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Demo Abstract Factory'
   ClientHeight = 322
