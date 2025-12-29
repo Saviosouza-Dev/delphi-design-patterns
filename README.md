@@ -53,6 +53,8 @@ O projeto está disponível em:
 ### 🔗 Links rápidos
 
 - [Singleton](https://saviosouza-dev.github.io/delphi-design-patterns/singleton.html)
+- [factory-method](https://saviosouza-dev.github.io/delphi-design-patterns/factory-method.html)
+- [abstract-factory](https://saviosouza-dev.github.io/delphi-design-patterns/abstract-factory.html)
 
 ## 👨‍💻 Autor
 
