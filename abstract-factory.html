@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎨 Padrão Abstract Factory em Delphi</title>
+  <title>📲 Padrão Abstract Factory em Delphi</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -75,98 +75,107 @@
 <body>
 
 <header>
-  <h1>🎨 Padrão Abstract Factory em Delphi</h1>
-  <p>Criação de famílias de objetos relacionados com consistência e flexibilidade</p>
+  <h1>📲 Padrão Abstract Factory em Delphi</h1>
+  <p>Criação de famílias de notificações relacionadas com consistência e flexibilidade</p>
 </header>
 
 <main>
   <h2>✅ Definição</h2>
   <div class="box">
-    Abstract Factory é um padrão criacional que fornece uma interface para criar <strong>famílias de objetos relacionados</strong> sem especificar suas classes concretas. Ele garante consistência entre os objetos criados e facilita a troca de estilos ou temas.
+    Abstract Factory é um padrão criacional que fornece uma interface para criar <strong>famílias de objetos relacionados</strong> sem especificar suas classes concretas. Ele garante consistência entre os objetos criados e facilita a troca de estilos ou versões.
   </div>
 
   <h2>💡 Cenário prático</h2>
-  <p>Imagine que você está desenvolvendo um sistema que gera <strong>cartões de aniversário</strong> e <strong>cartões de natal</strong> com dois estilos:</p>
+  <p>Imagine que você está desenvolvendo um sistema que envia <strong>notificações</strong> em diferentes canais:</p>
   <ul>
-    <li>✉️ Simples</li>
-    <li>💎 Luxo</li>
+    <li>📧 Email</li>
+    <li>📱 SMS</li>
+    <li>🔔 Push</li>
   </ul>
   <div class="exemplo">
-    Com Abstract Factory, você garante que todos os cartões criados sigam o mesmo estilo, evitando misturas como "aniversário simples" com "natal luxo".
+    Com Abstract Factory, você pode ter duas fábricas distintas:
+    <br><br>
+    - <strong>Factory Básica</strong>: cria notificações simples.<br>
+    - <strong>Factory Premium</strong>: cria notificações avançadas, com templates, logs e prioridade.
   </div>
 
   <h2>📦 Estrutura de Projeto</h2>
   <pre><code>
 src/
-├── Interfaces/
-│   ├── ICartaoAniversario.pas
-│   ├── ICartaoNatal.pas
-│   └── IFabricaCartao.pas
-├── Simples/
-│   ├── CartaoAniversarioSimples.pas
-│   ├── CartaoNatalSimples.pas
-│   └── FabricaCartaoSimples.pas
-├── Luxo/
-│   ├── CartaoAniversarioLuxo.pas
-│   ├── CartaoNatalLuxo.pas
-│   └── FabricaCartaoLuxo.pas
-└── App/
-    └── Main.pas
+├── core/
+│   ├── unNotificacao.pas
+│   └── unNotificacaoFactory.pas
+├── factories/
+│   ├── unFactoryBasica.pas
+│   └── unFactoryPremium.pas
+├── notificacoes/
+│   ├── email/
+│   │   ├── unNotificacaoEmail.pas
+│   │   └── unNotificacaoEmailPremium.pas
+│   ├── sms/
+│   │   ├── unNotificacaoSMS.pas
+│   │   └── unNotificacaoSMSPremium.pas
+│   └── push/
+│       ├── unNotificacaoPush.pas
+│       └── unNotificacaoPushPremium.pas
+├── tema/
+│   └── unTemaNotificacao.pas
+└── ui/
+    └── unMain.pas
   </code></pre>
 
   <h2>🧪 Código Delphi</h2>
   <pre><code>
 type
-  ICartaoAniversario = interface
-    procedure ExibirMensagem;
+  INotificacao = interface
+    procedure Enviar;
   end;
 
-  ICartaoNatal = interface
-    procedure ExibirMensagem;
+  INotificacaoFactory = interface
+    function CriarEmail: INotificacao;
+    function CriarSMS: INotificacao;
+    function CriarPush: INotificacao;
   end;
 
-  IFabricaCartao = interface
-    function CriarCartaoAniversario: ICartaoAniversario;
-    function CriarCartaoNatal: ICartaoNatal;
+  TNotificacaoEmail = class(TInterfacedObject, INotificacao)
+    procedure Enviar;
   end;
 
-  TCartaoAniversarioSimples = class(TInterfacedObject, ICartaoAniversario)
-    procedure ExibirMensagem;
-  end;
-
-  procedure TCartaoAniversarioSimples.ExibirMensagem;
+  procedure TNotificacaoEmail.Enviar;
   begin
-    ShowMessage('Feliz Aniversário! (Simples)');
+    ShowMessage('Email enviado (Básico)');
   end;
 
-  TFabricaCartaoSimples = class(TInterfacedObject, IFabricaCartao)
-    function CriarCartaoAniversario: ICartaoAniversario;
-    function CriarCartaoNatal: ICartaoNatal;
+  TFactoryBasica = class(TInterfacedObject, INotificacaoFactory)
+    function CriarEmail: INotificacao;
+    function CriarSMS: INotificacao;
+    function CriarPush: INotificacao;
   end;
 
-function TFabricaCartaoSimples.CriarCartaoAniversario: ICartaoAniversario;
+function TFactoryBasica.CriarEmail: INotificacao;
 begin
-  Result := TCartaoAniversarioSimples.Create;
+  Result := TNotificacaoEmail.Create;
 end;
 
 // Uso no cliente:
-procedure CriarCartoes(fabrica: IFabricaCartao);
+procedure CriarNotificacoes(factory: INotificacaoFactory);
 var
-  aniversario: ICartaoAniversario;
-  natal: ICartaoNatal;
+  email, sms, push: INotificacao;
 begin
-  aniversario := fabrica.CriarCartaoAniversario;
-  natal := fabrica.CriarCartaoNatal;
+  email := factory.CriarEmail;
+  sms := factory.CriarSMS;
+  push := factory.CriarPush;
 
-  aniversario.ExibirMensagem;
-  natal.ExibirMensagem;
+  email.Enviar;
+  sms.Enviar;
+  push.Enviar;
 end;
   </code><button class="copy-btn" onclick="copyCode(this)">Copiar código</button></pre>
 
   <h2>✅ Vantagens</h2>
   <div class="box">
     <ul>
-      <li>🔁 Troca de estilo sem alterar o código cliente</li>
+      <li>🔁 Troca de versão (Básica/Premium) sem alterar o código cliente</li>
       <li>🧩 Consistência entre os objetos criados</li>
       <li>🔒 Evita mistura de estilos incompatíveis</li>
     </ul>
@@ -174,7 +183,7 @@ end;
 
   <h2>📌 Conclusão</h2>
   <div class="box">
-    Abstract Factory é como escolher um combo de papelaria: você define o estilo e recebe todos os itens coordenados — sem precisar montar peça por peça.
+    Abstract Factory é como escolher um pacote de notificações: você define se quer Básico ou Premium e recebe todos os canais coordenados — sem precisar instanciar cada classe manualmente.
   </div>
 
   <p><a href="index.html">⬅️ Voltar à página principal</a></p>
