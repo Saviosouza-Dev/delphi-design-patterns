@@ -18,9 +18,8 @@ uses
 
   // Interfaces e fábricas do padrão Abstract Factory
   unINotificacaoFactory,
-  unFactoryBasica,
-  unFactoryPremium,
-  unINotificacao;
+  unINotificacao,
+  unControllerFactory;
 
 type
   TfrmAbstractFactory = class(TForm)
@@ -38,7 +37,7 @@ type
     procedure pnlEnviarSMSClick(Sender: TObject);
     procedure pnlEnviarPushClick(Sender: TObject);
   private
-    // A fábrica atual selecionada (Básica ou Premium)
+    // A fábrica atual fornecida pelo ControllerFactory (pode ser Básica, Premium ou outra futura)
     FFactory: INotificacaoFactory;
   public
 
@@ -77,8 +76,8 @@ end;
 procedure TfrmAbstractFactory.pnlFactoryBasicaClick(Sender: TObject);
 begin
    lblFactoryAtual.Caption := 'Factory atual: BÁSICA';
-    // Instancia a fábrica concreta do tipo Básica(seguindo o contrato da interface)
-   FFactory := TFactoryBasica.Create;
+    // Não Instancia a fábrica concreta diretamente no cliente (Pede ao Controller para obter uma fábrica específica)
+   FFactory := TControllerFactory.ObterFactory(tfBasica);
    TTemaNotificacao.AplicarBasico(pnlEnviarEmail, pnlEnviarSMS, pnlEnviarPush); // Aplica o tema visual da versão básica
 
 end;
@@ -86,8 +85,8 @@ end;
 procedure TfrmAbstractFactory.pnlFactoryPremiumClick(Sender: TObject);
 begin
   lblFactoryAtual.Caption := 'Factory atual: PREMIUM';
-  // Instancia a fábrica concreta do tipo Premium (seguindo o contrato da interface)
-  FFactory := TFactoryPremium.create;
+    // Não Instancia a fábrica concreta diretamente no cliente (Pede ao Controller para obter uma fábrica específica)
+  FFactory := TControllerFactory.ObterFactory(tfPremium);
   TTemaNotificacao.AplicarPremium(pnlEnviarEmail, pnlEnviarSMS, pnlEnviarPush) ;  // Aplica o tema visual da versão Premium
 end;
 

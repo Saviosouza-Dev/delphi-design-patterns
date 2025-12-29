@@ -13,7 +13,8 @@ uses
   unFactoryPremium in 'src\factories\unFactoryPremium.pas',
   unNotificacaoEmailPremium in 'src\notificacoes\email\unNotificacaoEmailPremium.pas',
   unNotificacaoSMSPremium in 'src\notificacoes\sms\unNotificacaoSMSPremium.pas',
-  unNotificacaoPushPremium in 'src\notificacoes\push\unNotificacaoPushPremium.pas';
+  unNotificacaoPushPremium in 'src\notificacoes\push\unNotificacaoPushPremium.pas',
+  unControllerFactory in 'src\factories\unControllerFactory.pas';
 
 {$R *.res}
 
