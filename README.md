@@ -45,7 +45,7 @@ delphi-design-patterns/
 - Use Live Server no VS Code para navegação dinâmica
 - Os fontes Delphi estão em `/padroes-criacionais/` e podem ser abertos no Delphi IDE
 
-## 🌐 Acesse o site
+## 🌐 Acesse os arquivos
 
 O projeto está disponível em:  
 [https://saviosouza-dev.github.io/delphi-design-patterns/](https://saviosouza-dev.github.io/delphi-design-patterns/)
@@ -55,6 +55,7 @@ O projeto está disponível em:
 - [Singleton](https://saviosouza-dev.github.io/delphi-design-patterns/singleton.html)
 - [factory-method](https://saviosouza-dev.github.io/delphi-design-patterns/factory-method.html)
 - [abstract-factory](https://saviosouza-dev.github.io/delphi-design-patterns/abstract-factory.html)
+- [prototype](https://saviosouza-dev.github.io/delphi-design-patterns/prototype.html)
 
 ## 👨‍💻 Autor
 
